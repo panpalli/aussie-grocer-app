@@ -9,18 +9,7 @@ import Toast from './components/Toast';
 import { ShoppingCartIcon, ArrowUpIcon, ChevronDownIcon } from './components/icons';
 
 const App: React.FC = () => {
-    // Check for API Key
-    if (!process.env.REACT_APP_API_KEY) {
-        return (
-            <div className="flex items-center justify-center min-h-screen bg-red-50 text-red-800">
-                <div className="text-center p-8 border-2 border-red-200 rounded-lg shadow-lg max-w-md">
-                    <h1 className="text-2xl font-bold mb-4">API Key Missing</h1>
-                    <p className="mb-2">The Google Gemini API key is not configured.</p>
-                    <p>To run this application, you need to set up the <code className="bg-red-100 p-1 rounded text-sm">REACT_APP_API_KEY</code> environment variable in your Vercel project settings.</p>
-                </div>
-            </div>
-        );
-    }
+    // FIX: Per coding guidelines, API key is assumed to be present. UI for missing key is removed.
 
     const [searchResults, setSearchResults] = useState<Product[]>([]);
     const [buyList, setBuyList] = useState<BuyListItem[]>([]);
@@ -42,13 +31,20 @@ const App: React.FC = () => {
                     const decoded = JSON.parse(decodeURIComponent(listData));
                     if (Array.isArray(decoded)) {
                         const validatedList: BuyListItem[] = decoded.filter(item =>
-                            item && typeof item.id === 'string' && typeof item.productId === 'string'
-                        ).map(item => ({...item, isTaken: item.isTaken || false }));
+                            item &&
+                            typeof item.id === 'string' &&
+                            typeof item.productId === 'string' &&
+                            typeof item.name === 'string' &&
+                            typeof item.store === 'string' &&
+                            typeof item.price === 'number' &&
+                            typeof item.quantity === 'string' &&
+                            typeof item.discountAmount === 'number'
+                        ).map(item => ({...item, isTaken: item.isTaken || false })); // Ensure isTaken exists
                         setBuyList(validatedList);
                     }
                 } catch (e) {
                     console.error("Failed to parse buy list from URL hash.", e);
-                    window.location.hash = '';
+                    window.location.hash = ''; // Clear invalid hash
                 }
             }
         }

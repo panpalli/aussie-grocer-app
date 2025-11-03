@@ -1,13 +1,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Product, Store } from '../types';
 
-if (!process.env.REACT_APP_API_KEY) {
-    // This warning is for local development if the .env file is missing.
-    // In production (Vercel), the app will show a user-friendly message.
-    console.warn("API_KEY environment variable not set.");
-}
-
-const ai = new GoogleGenAI({ apiKey: process.env.REACT_APP_API_KEY as string });
+// FIX: Per coding guidelines, API key must be from process.env.API_KEY and assumed to exist.
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
 
 const responseSchema = {
     type: Type.ARRAY,
