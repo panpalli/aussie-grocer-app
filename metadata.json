@@ -1,0 +1,5 @@
+{
+  "name": "Aussie Grocer Hunt",
+  "description": "An application to compare prices of grocery products from major Australian supermarkets like Coles and Woolworths, allowing users to create a shopping 'Buy List'.",
+  "requestFramePermissions": []
+}
