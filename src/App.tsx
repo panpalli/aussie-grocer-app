@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Product, BuyListItem } from './types';
 import { fetchProductPrices } from './services/geminiService';
@@ -30,6 +31,8 @@ const App: React.FC = () => {
                 try {
                     const decoded = JSON.parse(decodeURIComponent(listData));
                     if (Array.isArray(decoded)) {
+                        // BUG FIX: Added robust validation to prevent app crash from malformed URL data.
+                        // This ensures every item has all required properties before being added to the list.
                         const validatedList: BuyListItem[] = decoded.filter(item =>
                             item &&
                             typeof item.id === 'string' &&
