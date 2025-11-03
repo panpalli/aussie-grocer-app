@@ -16,6 +16,8 @@ const BuyList: React.FC<BuyListProps> = ({ items, onRemoveItem, onToggleTaken })
     const handleShare = () => {
         if (items.length === 0) return;
 
+        // Construct a clean, shareable URL by combining the origin and the hash.
+        // This avoids issues with temporary/blob URLs in preview environments.
         const shareableUrl = `${window.location.origin}${window.location.hash}`;
 
         navigator.clipboard.writeText(shareableUrl).then(() => {

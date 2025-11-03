@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Product, BuyListItem } from './types';
 import { fetchProductPrices } from './services/geminiService';

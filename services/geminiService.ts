@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Product, Store } from '../types';
 
-// FIX: Per coding guidelines, API key must be from process.env.API_KEY and assumed to exist.
+// FIX: Per coding guidelines, assume API_KEY is present and remove explicit checks/warnings.
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
 
 const responseSchema = {
@@ -59,7 +59,6 @@ export const fetchProductPrices = async (productName: string): Promise<Product[]
             return [];
         }
 
-        // Data validation and sanitization
         const products: Product[] = rawProducts
             .filter(p => p && typeof p === 'object' && p.name && p.id)
             .map((p: any) => {

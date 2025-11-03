@@ -20,7 +20,7 @@ const BuyListItem: React.FC<BuyListItemProps> = ({ item, onRemove, onToggleTaken
     const storeColor = storeColors[item.store] || 'border-l-gray-500';
 
     const handleRemoveClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
+        e.stopPropagation(); // Prevents toggling 'taken' status when deleting
         onRemove(item.id);
     };
 
@@ -42,7 +42,7 @@ const BuyListItem: React.FC<BuyListItemProps> = ({ item, onRemove, onToggleTaken
             </div>
             <div className="flex items-center space-x-4 ml-2">
                 {item.isTaken && <span className="text-xs font-bold text-green-700 bg-green-200 px-2 py-1 rounded-full">TAKEN</span>}
-                 <p className={`font-bold ${item.isTaken ? 'text-white' : 'text-gray-900'}`}>{item.price.toFixed(2)}</p>
+                 <p className={`font-bold ${item.isTaken ? 'text-white' : 'text-gray-900'}`}>${item.price.toFixed(2)}</p>
                 <button 
                     onClick={handleRemoveClick}
                     className={`transition-colors z-10 ${item.isTaken ? 'text-slate-300 hover:text-white' : 'text-gray-400 hover:text-red-600'}`}
